@@ -24,18 +24,15 @@ public class Director extends Employee {
 	@Override
 	public String showEmployeeData() {
 		this.setSalary();
-		if (this.isIll() == false) {
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + this.getHours()
-					+ " hours, salary is " + this.getSalary() + " and is not ill";
-		} else {
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + this.getHours()
-					+ " hours, salary is " + this.getSalary() + " and is ill";
-		}
+			return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
+					+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
+		
 	}
 
 	@Override
 	public int vowels() {
 		String name = this.getName() + " " + this.getLastName();
+		name.toLowerCase();
 		int vowels = 0;
 		for (int i = 0; i < name.length(); i++) {
 			char letter = name.charAt(i);

@@ -1,11 +1,12 @@
 package com.vutbr.feec.project;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Function {
 	Scanner sc = new Scanner(System.in);
-
+	public static DecimalFormat df = new DecimalFormat("#.##");
 	public int operation() {
 		int choose;
 		String[] operation = { "add employee", "add work", "delete work", "aktivace zamestnance", "fire employee",
@@ -101,21 +102,30 @@ public class Function {
 		return 0;
 
 	}
-/*
-	public String scan(int idOperation) {
-		String name;
-		if (idOperation == 1) {
-			System.out.println("Input first name of employee");
-		} else if (idOperation == 2) {
-			System.out.println("Input last name of employee");
+
+	public void realocationWrong(int errCode, double[] hours) {
+		if (errCode == -1) {
+			System.out.println("Can't set hours for administration work " + df.format(hours[0]) + " is unasigned and disapear");
+		} else if (errCode == -2) {
+			System.out.println("Can't set hours for technical documentation " + df.format(hours[1]) + " is unasigned and disapear");
+		} else if (errCode == -3) {
+			System.out.println("Can't set hours for developing work " + df.format(hours[2]) + " is unasigned and disapear");
+		} else if (errCode == -4) {
+			System.out.println("Can't set hours for administration work " + df.format(hours[0]) + " is unasigned and disapear");
+			System.out.println("Can't set hours for technical documentation " + df.format(hours[1]) + " is unasigned and disapear");
+		} else if (errCode == -5) {
+			System.out.println("Can't set hours for technical documentation " + df.format(hours[1]) + " is unasigned and disapear");
+			System.out.println("Can't set hours for developing work " + df.format(hours[2]) + " is unasigned and disapear");
+		} else if (errCode == -6) {
+			System.out.println("Can't set hours for administration work " + df.format(hours[0]) + " is unasigned and disapear");
+			System.out.println("Can't set hours for developing work " + df.format(hours[2]) + " is unasigned and disapear");
+		} else if (errCode == -7) {
+			System.out.println("Can't set hours for administration work " + df.format(hours[0]) + " is unasigned and disapear");
+			System.out.println("Can't set hours for technical documentation " + df.format(hours[1]) + " is unasigned and disapear");
+			System.out.println("Can't set hours for developing work " + df.format(hours[2]) + " is unasigned and disapear");
 		}
-		while (!sc.hasNextLine()&& sc.nextLine() != "") {
-			sc.next();
-		}
-		name = sc.nextLine();
-		return name;
 	}
-*/
+
 	public void press2Continue() {
 		System.out.print("press enter");
 		try {
