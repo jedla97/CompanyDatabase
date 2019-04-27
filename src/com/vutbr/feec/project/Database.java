@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,14 +18,16 @@ public class Database implements Comparator<Employee> {
 	List<Employee> data = new ArrayList<Employee>();
 	final String COMMA_DELIMITER = ",";
 	final String LINE_SEPARATOR = "\n";
-	// final String HEADER = "EmployeeID,FirstName,LastName,Salary";
-
+	public static String format = "|%1$-8s|%2$-20s|%3$-20s|%4$-15s|\n";
+	public static DecimalFormat df = new DecimalFormat("#.##");
+	
 	Comparator<Employee> compareByLastName = (Employee o1, Employee o2) -> o1.getLastName().compareTo(o2.getLastName());
 	Comparator<Employee> compareById = (Employee o1, Employee o2) -> o1.getId().compareTo(o2.getId());
 
 	public void printAllEmployee() {
 		int choose;
 		String[] operation = { " by Id ", " by last name " };
+		String[] header = { "ID", "first name", "last name", "profession" };
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		for (int i = 0; i < operation.length; i++) {
@@ -37,12 +40,14 @@ public class Database implements Comparator<Employee> {
 			choose = sc.nextInt();
 			if (choose == 1) {
 				Collections.sort(data, compareById);
+				System.out.format(format, header);
 				for (Employee employee : data) {
 					System.out.println(employee);
 				}
 				break;
 			} else if (choose == 2) {
 				Collections.sort(data, compareByLastName);
+				System.out.format(format, header);
 				for (Employee employee : data) {
 					System.out.println(employee);
 				}
@@ -68,7 +73,8 @@ public class Database implements Comparator<Employee> {
 			System.out.println("employee with Id " + id + " doesn't exit");
 		} else {
 			vowels = data.get(help).vowels();
-			System.out.println("Number of vowels is " + vowels);
+			System.out.println("Number of vowels is " + vowels + " in name" + data.get(help).getName() + " "
+					+ data.get(help).getLastName());
 		}
 	}
 
@@ -80,7 +86,8 @@ public class Database implements Comparator<Employee> {
 			System.out.println("employee with Id " + id + " doesn't exit");
 		} else {
 			name = data.get(help).reverseName();
-			System.out.println(name);
+			System.out.println(
+					"reverse of " + data.get(help).getName() + " " + data.get(help).getLastName() + " name is " + name);
 		}
 	}
 
@@ -110,6 +117,7 @@ public class Database implements Comparator<Employee> {
 			pw.write(tmp);
 		}
 		pw.close();
+		System.out.println("Employee database was save successfully");
 	}
 
 	public void load(File persons, Database data) throws FileNotFoundException {
@@ -176,6 +184,7 @@ public class Database implements Comparator<Employee> {
 
 				}
 			}
+			System.out.println("Employee database was load successfully");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -224,10 +233,10 @@ public class Database implements Comparator<Employee> {
 				}
 			}
 		}
-		System.out.println("Number of Assistants: " + counterA + " and their free obligation: " + obligationA
-				+ "\nNumber of TechnicalWorkers: " + counterT + " and their free obligation: " + obligationT
-				+ "\nNumber of Developers: " + counterDev + " and their free obligation: " + obligationDev
-				+ "\nNumber of Directors: " + counterDir + " and their free obligation: " + obligationDir);
+		System.out.println("Number of Assistants: " + counterA + " and their free obligation: " + df.format(obligationA)
+				+ "\nNumber of TechnicalWorkers: " + counterT + " and their free obligation: " + df.format(obligationT)
+				+ "\nNumber of Developers: " + counterDev + " and their free obligation: " + df.format(obligationDev)
+				+ "\nNumber of Directors: " + counterDir + " and their free obligation: " + df.format(obligationDir));
 
 	}
 
@@ -415,6 +424,8 @@ public class Database implements Comparator<Employee> {
 				} else {
 					return -1;
 				}
+			} else {
+				return -1;
 			}
 		} else if (counterT > 0) {
 			if ((helpHours / counterT) <= (maxHour - maxHourT)) {
@@ -476,7 +487,6 @@ public class Database implements Comparator<Employee> {
 		} else {
 			return -1;
 		}
-		return 0;
 	}
 
 	public int workTechnical(double hours) {
@@ -637,6 +647,8 @@ public class Database implements Comparator<Employee> {
 				} else {
 					return -1;
 				}
+			} else {
+				return -1;
 			}
 		} else if (counterDev > 0) {
 			if ((helpHours / counterDev) <= (maxHour - maxHourD)) {
@@ -698,7 +710,6 @@ public class Database implements Comparator<Employee> {
 		} else {
 			return -1;
 		}
-		return 0;
 	}
 
 	public int workDeveloper(double hours) {
@@ -832,7 +843,6 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
-	
 	public double getMaxHourForEmployee() {
 		double ret = 744, help = 744;
 		for (int i = 0; i < data.size(); i++) {
@@ -842,6 +852,136 @@ public class Database implements Comparator<Employee> {
 			}
 		}
 		return ret;
+	}
+
+	public double[] employeeHours(int id) {
+		int help;
+		double hoursA = 0, hoursT = 0, hoursD = 0;
+		help = this.employeeId(id);
+		if (help == -1) {
+			System.out.println("employee with Id " + id + " doesn't exit");
+			double[] ret = { -1 };
+			return ret;
+		} else {
+			hoursA = data.get(help).getHoursA();
+			hoursT = data.get(help).getHoursT();
+			hoursD = data.get(help).getHoursD();
+			double[] ret = { hoursA, hoursT, hoursD };
+			return ret;
+		}
+	}
+
+	public void fireEmployee(int id) {
+		int help;
+		String name;
+		help = this.employeeId(id);
+		if (help == -1) {
+			System.out.println("Employee with Id " + id + " doesn't exit");
+		} else {
+			name = data.get(help).getLastName();
+			data.remove(help);
+			System.out.println("Employee Id " + id + " name " + name + " has been fired");
+		}
+	}
+
+	public void endIlness(int id) {
+		int help;
+		help = this.employeeId(id);
+		if (help == -1) {
+			System.out.println("employee with Id " + id + " doesn't exit");
+		} else {
+			data.get(help).setIll(false);
+			System.out.println("Employee " + id + " " + data.get(help).getLastName() + " has end ilness");
+		}
+	}
+
+	// ret -1 for adminW fail , -2 for tecgwork fail, -3 for developer fail,
+	// -4 for technical and administraion fail,
+	// -5 for technic and develop fail, -6 for develop and administration fail,
+	// -7 for all fail
+	public int reallocation(double hoursA, double hoursT, double hoursD, int prof) {
+		int help = 0;
+		if (prof == 1) {
+			help = this.workAssistant(hoursA);
+			if (help == -1) {
+				return -1;
+			}
+		} else if (prof == 2) {
+			help = this.workAssistant(hoursA);
+			if (help == -1) {
+				help = this.workTechnical(hoursT);
+				if (help == -1) {
+					return -4;
+				}
+				return -1;
+			}
+			help = this.workTechnical(hoursT);
+			if (help == -1) {
+				return -2;
+			}
+
+		} else if (prof == 3) {
+			help = this.workTechnical(hoursT);
+			if (help == -1) {
+				help = this.workDeveloper(hoursD);
+				if (help == -1) {
+					return -5;
+				}
+				return -2;
+			}
+			help = this.workDeveloper(hoursD);
+			if (help == -1) {
+				return -3;
+			}
+		} else if (prof == 4) {
+			help = this.workAssistant(hoursA);
+			if (help == -1) {
+				help = this.workTechnical(hoursT);
+				if (help == -1) {
+					help = this.workDeveloper(hoursD);
+					if (help == -1) {
+						return -7;
+					}
+				}
+				help = this.workDeveloper(hoursD);
+				if (help == -1) {
+					return -6;
+				}
+			}
+			help = this.workTechnical(hoursT);
+			if (help == -1) {
+				help = this.workDeveloper(hoursD);
+				if (help == -1) {
+					return -5;
+				}
+				return -2;
+			}
+			help = this.workDeveloper(hoursD);
+			if (help == -1) {
+				return -3;
+			}
+		}
+
+		return 0;
+	}
+
+	public int startIlness(int id) {
+		int help;
+		help = this.employeeId(id);
+		if (help == -1) {
+			System.out.println("employee with Id " + id + " doesn't exit");
+		} else {
+			data.get(help).setIll(true);
+			data.get(help).setAdministrationWork(false);
+			data.get(help).setHoursA(0);
+			data.get(help).setTechnicalWork(false);
+			data.get(help).setHoursT(0);
+			data.get(help).setDevolopWork(false);
+			data.get(help).setHoursD(0);
+			data.get(help).setHours(0);
+			System.out.println("Employee " + id + " " + data.get(help).getLastName() + " has started ilness");
+		}
+		return help;
 	}
 
 	@Override

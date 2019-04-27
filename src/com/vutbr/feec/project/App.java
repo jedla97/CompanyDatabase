@@ -2,16 +2,19 @@ package com.vutbr.feec.project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
 	private static final String MAVEN_RESOURCES_PREFIX = "./src/com/vutbr/feec/project/";
 
 	public static void main(String[] args) {
+		final DecimalFormat df = new DecimalFormat("#.##");
 		File persons = new File(MAVEN_RESOURCES_PREFIX + "persons.csv");
-		int operation, profession, id;
+		int operation, profession, id, help1, help2;
 		double help;
-		String name = null, lastName = null;
+		double[] helpHours;
+		String lastName = null, firstName = null;
 		// boolean flag = false;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -22,15 +25,9 @@ public class App {
 			// add employee
 			if (operation == 1) {
 				System.out.println("Input first name of employee");
-				while (!sc.hasNextLine() && sc.nextLine() != "") {
-					sc.next();
-				}
-				name = sc.nextLine();
+				firstName = sc.next();
 				System.out.println("Input last name of employee");
-				while (!sc.hasNextLine() && sc.nextLine() != "") {
-					sc.next();
-				}
-				lastName = sc.nextLine();
+				lastName = sc.next();
 				System.out.println("Input Id of employee");
 				while (!sc.hasNextInt()) {
 					sc.next();
@@ -39,28 +36,28 @@ public class App {
 				profession = function.chooseProfesion();
 				help = data.getMaxHourForEmployee();
 				if (profession == 1) {
-					Assistant assistant = new Assistant(id, name, lastName);
+					Assistant assistant = new Assistant(id, firstName, lastName);
 					if (data.checkIfIdExist(assistant.getId()) == 0) {
 						assistant.setMaxHours(help);
 						data.data.add(assistant);
 						System.out.println("Employee with id " + id + " has been added");
 					}
 				} else if (profession == 2) {
-					TechnicalWorker technicalWorker = new TechnicalWorker(id, name, lastName);
+					TechnicalWorker technicalWorker = new TechnicalWorker(id, firstName, lastName);
 					if (data.checkIfIdExist(technicalWorker.getId()) == 0) {
 						technicalWorker.setMaxHours(help);
 						data.data.add(technicalWorker);
 						System.out.println("Employee with id " + id + " has been added");
 					}
 				} else if (profession == 3) {
-					Developer developer = new Developer(id, name, lastName);
+					Developer developer = new Developer(id, firstName, lastName);
 					if (data.checkIfIdExist(developer.getId()) == 0) {
 						developer.setMaxHours(help);
 						data.data.add(developer);
 						System.out.println("Employee with id " + id + " has been added");
 					}
 				} else if (profession == 4) {
-					Director director = new Director(id, name, lastName);
+					Director director = new Director(id, firstName, lastName);
 					if (data.checkIfIdExist(director.getId()) == 0) {
 						if (Director.counter <= 1) {
 							data.data.add(director);
@@ -75,20 +72,19 @@ public class App {
 			}
 			// add work
 			else if (operation == 2) {
-				int help2;
-				int help1 = function.chooseWhatToDo(4);
+				help1 = function.chooseWhatToDo(4);
 				help = function.howManyHours();
 				help2 = data.setWork(help1, help);
-				if(help2==-1) {
+				if (help2 == -1) {
 					System.out.println("Can't set the work. Don't enough work power.");
 				}
 				function.press2Continue();
 			}
 			// delete work
 			else if (operation == 3) {
-				int help1 = function.chooseWhatToDo(4);
+				help1 = function.chooseWhatToDo(4);
 				help = function.howManyHours();
-				data.setWork(help1, help*(-1));
+				data.setWork(help1, help * (-1));
 				function.press2Continue();
 			}
 			// activation of employee
@@ -101,11 +97,11 @@ public class App {
 				if (data.isCapable(id) == true) {
 					System.out.println("Employee is not capable of do this job");
 				} else {
-					int help1 = data.whatIsMyProfession(id);
+					help1 = data.whatIsMyProfession(id);
 					if (help1 == 1) {
 						data.printEmployee(id);
 					} else {
-						int help2 = function.chooseWhatToDo(help1);
+						help2 = function.chooseWhatToDo(help1);
 						if (help1 == 2 && help2 == 1) {
 							data.printEmployee(id);
 						} else if (help1 == 2 && help2 == 2) {
@@ -127,14 +123,50 @@ public class App {
 			}
 			// fire employee
 			else if (operation == 5) {
+				System.out.println("Input Id of employee");
+				while (!sc.hasNextInt()) {
+					sc.next();
+				}
+				id = sc.nextInt();
+				profession = data.whatIsMyProfession(id);
+				helpHours = data.employeeHours(id);
+				if (helpHours[0] == -1) {
+
+				} else {
+					data.fireEmployee(id);
+					help1 = data.reallocation(helpHours[0], helpHours[1], helpHours[2], profession);
+					function.realocationWrong(help1, helpHours);
+				}
 				function.press2Continue();
+
 			}
 			// start illness
 			else if (operation == 6) {
+				System.out.println("Input Id of employee");
+				while (!sc.hasNextInt()) {
+					sc.next();
+				}
+				id = sc.nextInt();
+				profession = data.whatIsMyProfession(id);
+				helpHours = data.employeeHours(id);
+
+				if (helpHours[0] == -1) {
+
+				} else {
+					data.startIlness(id);
+					help1 = data.reallocation(helpHours[0], helpHours[1], helpHours[2], profession);
+					function.realocationWrong(help1, helpHours);
+				}
 				function.press2Continue();
 			}
 			// end illness
 			else if (operation == 7) {
+				System.out.println("Input Id of employee");
+				while (!sc.hasNextInt()) {
+					sc.next();
+				}
+				id = sc.nextInt();
+				data.endIlness(id);
 				function.press2Continue();
 			}
 			// obligation
@@ -151,7 +183,7 @@ public class App {
 			// finance
 			else if (operation == 10) {
 				help = data.companySalary();
-				System.out.println(help);
+				System.out.println("Company costs are " + df.format(help) + "$");
 				function.press2Continue();
 			}
 			// show all employee
@@ -173,9 +205,11 @@ public class App {
 			else if (operation == 13) {
 				try {
 					data.load(persons, data);
+					
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
+				
 				function.press2Continue();
 			}
 			// end program

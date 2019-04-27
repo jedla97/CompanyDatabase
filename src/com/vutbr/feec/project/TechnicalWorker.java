@@ -1,7 +1,5 @@
 package com.vutbr.feec.project;
 
-import java.text.DecimalFormat;
-
 import com.vutbr.feec.project.Employee;
 
 public class TechnicalWorker extends Employee {
@@ -22,13 +20,9 @@ public class TechnicalWorker extends Employee {
 	@Override
 	public String showEmployeeData() {
 		this.setSalary();
-		if (this.isIll() == false) {
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + this.getHours()
-					+ " hours, salary is " + this.getSalary() + " and is not ill";
-		} else {
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + this.getHours()
-					+ " hours, salary is " + this.getSalary() + " and is ill";
-		}
+			return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
+					+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
+		
 	}
 
 	// for numbers of vowels in czech alphabet
