@@ -1,4 +1,4 @@
-# BPC2T
+# Company Database
 * Create by Jakub Jedlicka
  * School project BPC2I
  * School BUT FEEC
