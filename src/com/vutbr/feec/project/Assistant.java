@@ -19,8 +19,8 @@ public class Assistant extends Employee {
 	@Override
 	public String showEmployeeData() {
 		this.setSalary();
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + this.getHours()
-					+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
+		return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
+				+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
 	}
 
 	@Override

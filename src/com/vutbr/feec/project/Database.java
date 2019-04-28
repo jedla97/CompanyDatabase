@@ -20,7 +20,7 @@ public class Database implements Comparator<Employee> {
 	final String LINE_SEPARATOR = "\n";
 	public static String format = "|%1$-8s|%2$-20s|%3$-20s|%4$-15s|\n";
 	public static DecimalFormat df = new DecimalFormat("#.##");
-	
+
 	Comparator<Employee> compareByLastName = (Employee o1, Employee o2) -> o1.getLastName().compareTo(o2.getLastName());
 	Comparator<Employee> compareById = (Employee o1, Employee o2) -> o1.getId().compareTo(o2.getId());
 
@@ -260,11 +260,29 @@ public class Database implements Comparator<Employee> {
 		return 0;
 	}
 
-	public boolean isCapable(int id) {
+	public boolean isCapable(int id, int action) {
 		int help = this.employeeId(id);
-		if (help == -1) {
-		} else if (data.get(help).isIll() == true || data.get(help).getHours() == 0) {
-			return true;
+		if (action == 4) {
+			if (help == -1) {
+			} else if (data.get(help).isIll() == true || data.get(help).getHours() == 0) {
+				return true;
+			}
+			return false;
+		} else if (action == 1) {
+			if (data.get(help).getHoursA() == 0) {
+				return true;
+			}
+			return false;
+		} else if (action == 2) {
+			if (data.get(help).getHoursT() == 0) {
+				return true;
+			}
+			return false;
+		} else if (action == 3) {
+			if (data.get(help).getHoursD() == 0) {
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}

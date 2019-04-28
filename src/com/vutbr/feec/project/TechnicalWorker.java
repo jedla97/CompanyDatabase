@@ -14,21 +14,22 @@ public class TechnicalWorker extends Employee {
 	private double hoursT = 0;
 
 	public TechnicalWorker(Integer id, String name, String lastName) {
-		super(id, name, name);
+		super(id, name, lastName);
 	}
 
 	@Override
 	public String showEmployeeData() {
 		this.setSalary();
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
-					+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
-		
+		return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
+				+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
+
 	}
 
 	// for numbers of vowels in czech alphabet
 	@Override
 	public int vowels() {
 		String name = this.getName() + " " + this.getLastName();
+		name = name.toLowerCase();
 		int vowels = 0;
 		for (int i = 0; i < name.length(); i++) {
 			char letter = name.charAt(i);

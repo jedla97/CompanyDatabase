@@ -83,7 +83,7 @@ public class Employee {
 	// numbers of vowels
 	public int vowels() {
 
-		return 0;
+		return -1;
 	}
 
 // reverse name

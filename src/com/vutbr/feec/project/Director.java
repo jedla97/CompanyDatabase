@@ -32,7 +32,7 @@ public class Director extends Employee {
 	@Override
 	public int vowels() {
 		String name = this.getName() + " " + this.getLastName();
-		name.toLowerCase();
+		name=name.toLowerCase();
 		int vowels = 0;
 		for (int i = 0; i < name.length(); i++) {
 			char letter = name.charAt(i);
