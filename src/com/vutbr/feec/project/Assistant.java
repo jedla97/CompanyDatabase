@@ -15,6 +15,15 @@ public class Assistant extends Employee {
 		super(id, name, lastName);
 	}
 
+	// return string with type of work and how many hours do on that job
+	public String workJobs() {
+		if (this.administrationWork == true) {
+			return "administrative work with " + df.format(this.getHoursA()) + " hours";
+		} else {
+			return "nothing";
+		}
+	}
+
 	// for administration work
 	@Override
 	public String showEmployeeData() {
@@ -27,14 +36,6 @@ public class Assistant extends Employee {
 	public String toString() {
 		String[] stringHelp = { this.getId().toString(), this.getName(), this.getLastName(), profession };
 		return String.format(format, stringHelp) + " working on " + this.workJobs();
-	}
-
-	public String workJobs() {
-		if (this.administrationWork == true) {
-			return "administrative work with " + df.format(this.getHoursA()) + " hours";
-		} else {
-			return "nothing";
-		}
 	}
 
 	@Override

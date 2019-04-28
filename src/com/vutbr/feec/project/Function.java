@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
+// class only for help function
 public class Function {
 	Scanner sc = new Scanner(System.in);
 	public static DecimalFormat df = new DecimalFormat("#.##");
 
+	// print every type of operation and return int which user choose
 	public int operation() {
 		int choose;
 		String[] operation = { "add employee", "add work", "delete work", "activation of employee(do work)",
@@ -28,6 +30,7 @@ public class Function {
 		}
 	}
 
+	// choosing which profession add and return it int
 	public int chooseProfesion() {
 		int choose;
 		String[] profession = { "Asistant", "TechnicalWorker", "Developer", "Director" };
@@ -46,6 +49,7 @@ public class Function {
 
 	}
 
+	// choose how many hours want only positive numbers and 0
 	public double howManyHours() {
 		double choose;
 		System.out.println("how many hours: ");
@@ -60,6 +64,7 @@ public class Function {
 		}
 	}
 
+	// choose which one type of work to do by it's profession
 	public int chooseWhatToDo(int prof) {
 		int choose;
 		String[] work = { "Info about employee", "Technical work", "Develop work" };
@@ -105,6 +110,7 @@ public class Function {
 
 	}
 
+	// error handling of reallocation codes with out print
 	public void realocationWrong(int errCode, double[] hours) {
 		if (errCode == -1) {
 			System.out.println(
@@ -140,6 +146,7 @@ public class Function {
 		}
 	}
 
+	// press enter to continue
 	public void press2Continue() {
 		System.out.print("press enter");
 		try {

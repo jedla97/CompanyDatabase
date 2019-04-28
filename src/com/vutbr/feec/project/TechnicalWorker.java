@@ -17,6 +17,20 @@ public class TechnicalWorker extends Employee {
 		super(id, name, lastName);
 	}
 
+	// return string with type of work and how many hours do on that job
+	public String workJobs() {
+		if (this.administrationWork == true && this.technicalWork == true) {
+			return "administrative work with " + df.format(this.getHoursA())
+					+ " hours and technical documentation with " + df.format(this.getHoursT()) + " hours";
+		} else if (this.administrationWork == true) {
+			return "administrative work with " + df.format(this.getHoursA()) + " hours";
+		} else if (this.technicalWork == true) {
+			return "technical documentation" + df.format(this.getHoursT()) + " hours";
+		} else {
+			return "nothing";
+		}
+	}
+
 	@Override
 	public String showEmployeeData() {
 		this.setSalary();
@@ -46,19 +60,6 @@ public class TechnicalWorker extends Employee {
 	public String toString() {
 		String[] stringHelp = { this.getId().toString(), this.getName(), this.getLastName(), profession };
 		return String.format(format, stringHelp) + " working on " + this.workJobs();
-	}
-
-	public String workJobs() {
-		if (this.administrationWork == true && this.technicalWork == true) {
-			return "administrative work with " + df.format(this.getHoursA())
-					+ " hours and technical documentation with " + df.format(this.getHoursT()) + " hours";
-		} else if (this.administrationWork == true) {
-			return "administrative work with " + df.format(this.getHoursA()) + " hours";
-		} else if (this.technicalWork == true) {
-			return "technical documentation" + df.format(this.getHoursT()) + " hours";
-		} else {
-			return "nothing";
-		}
 	}
 
 	@Override

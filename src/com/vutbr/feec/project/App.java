@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class App {
 	private static final String MAVEN_RESOURCES_PREFIX = "./src/com/vutbr/feec/project/";
 
+// main part of app for choose which operation to do
 	public static void main(String[] args) {
 		final DecimalFormat df = new DecimalFormat("#.##");
 		File persons = new File(MAVEN_RESOURCES_PREFIX + "persons.csv");
