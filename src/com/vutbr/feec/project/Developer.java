@@ -18,6 +18,20 @@ public class Developer extends Employee {
 		super(id, name, lastName);
 	}
 
+	// return string with type of work and how many hours do on that job
+	public String workJobs() {
+		if (this.devolopWork == true && this.technicalWork == true) {
+			return "technical documentation with " + df.format(this.getHoursT()) + " hours and development work with "
+					+ df.format(this.getHoursD()) + " hours";
+		} else if (this.devolopWork == true) {
+			return "development work with " + df.format(this.getHoursD()) + " hours";
+		} else if (this.technicalWork == true) {
+			return "technical documentation" + df.format(this.getHoursT()) + " hours";
+		} else {
+			return "nothing";
+		}
+	}
+
 	@Override
 	public String reverseName() {
 		StringBuilder input = new StringBuilder();
@@ -30,7 +44,7 @@ public class Developer extends Employee {
 	@Override
 	public int vowels() {
 		String name = this.getName() + " " + this.getLastName();
-		name.toLowerCase();
+		name = name.toLowerCase();
 		int vowels = 0;
 		for (int i = 0; i < name.length(); i++) {
 			char letter = name.charAt(i);
@@ -47,19 +61,6 @@ public class Developer extends Employee {
 	public String toString() {
 		String[] stringHelp = { this.getId().toString(), this.getName(), this.getLastName(), profession };
 		return String.format(format, stringHelp) + " working on " + this.workJobs();
-	}
-
-	public String workJobs() {
-		if (this.devolopWork == true && this.technicalWork == true) {
-			return "technical documentation with " + df.format(this.getHoursT()) + " hours and development work with "
-					+ df.format(this.getHoursD()) + " hours";
-		} else if (this.devolopWork == true) {
-			return "development work with " + df.format(this.getHoursD()) + " hours";
-		} else if (this.technicalWork == true) {
-			return "technical documentation" + df.format(this.getHoursT()) + " hours";
-		} else {
-			return "nothing";
-		}
 	}
 
 	@Override

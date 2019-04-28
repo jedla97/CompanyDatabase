@@ -2,6 +2,7 @@ package com.vutbr.feec.project;
 
 import java.text.DecimalFormat;
 
+// lot of methods is overwrite in subclasses
 public class Employee {
 	public static String format = "|%1$-8s|%2$-20s|%3$-20s|%4$-15s|";
 	public static DecimalFormat df = new DecimalFormat("#.##");
@@ -17,6 +18,7 @@ public class Employee {
 
 	}
 
+// String for save to file
 	public String toDatabase() {
 		return null;
 	}
@@ -63,6 +65,7 @@ public class Employee {
 		return false;
 	}
 
+// 744 = 31*24 is maximum hours in month // for director
 	public double getMaxHours() {
 		return 744;
 
@@ -83,7 +86,7 @@ public class Employee {
 	// numbers of vowels
 	public int vowels() {
 
-		return 0;
+		return -1;
 	}
 
 // reverse name
@@ -100,62 +103,49 @@ public class Employee {
 	}
 
 	public boolean isAdministrationWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void setAdministrationWork(boolean administrationWork) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public boolean isTechnicalWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void setTechnicalWork(boolean technicalWork) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public boolean isDevolopWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void setDevolopWork(boolean devolopWork) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public double getHoursA() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public void setHoursA(double hoursA) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public double getHoursT() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public void setHoursT(double hoursT) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public double getHoursD() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public void setHoursD(double hoursD) {
-		// TODO Auto-generated method stub
 
 	}
 

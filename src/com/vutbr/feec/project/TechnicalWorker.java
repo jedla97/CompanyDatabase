@@ -14,21 +14,36 @@ public class TechnicalWorker extends Employee {
 	private double hoursT = 0;
 
 	public TechnicalWorker(Integer id, String name, String lastName) {
-		super(id, name, name);
+		super(id, name, lastName);
+	}
+
+	// return string with type of work and how many hours do on that job
+	public String workJobs() {
+		if (this.administrationWork == true && this.technicalWork == true) {
+			return "administrative work with " + df.format(this.getHoursA())
+					+ " hours and technical documentation with " + df.format(this.getHoursT()) + " hours";
+		} else if (this.administrationWork == true) {
+			return "administrative work with " + df.format(this.getHoursA()) + " hours";
+		} else if (this.technicalWork == true) {
+			return "technical documentation" + df.format(this.getHoursT()) + " hours";
+		} else {
+			return "nothing";
+		}
 	}
 
 	@Override
 	public String showEmployeeData() {
 		this.setSalary();
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
-					+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
-		
+		return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
+				+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
+
 	}
 
 	// for numbers of vowels in czech alphabet
 	@Override
 	public int vowels() {
 		String name = this.getName() + " " + this.getLastName();
+		name = name.toLowerCase();
 		int vowels = 0;
 		for (int i = 0; i < name.length(); i++) {
 			char letter = name.charAt(i);
@@ -45,19 +60,6 @@ public class TechnicalWorker extends Employee {
 	public String toString() {
 		String[] stringHelp = { this.getId().toString(), this.getName(), this.getLastName(), profession };
 		return String.format(format, stringHelp) + " working on " + this.workJobs();
-	}
-
-	public String workJobs() {
-		if (this.administrationWork == true && this.technicalWork == true) {
-			return "administrative work with " + df.format(this.getHoursA())
-					+ " hours and technical documentation with " + df.format(this.getHoursT()) + " hours";
-		} else if (this.administrationWork == true) {
-			return "administrative work with " + df.format(this.getHoursA()) + " hours";
-		} else if (this.technicalWork == true) {
-			return "technical documentation" + df.format(this.getHoursT()) + " hours";
-		} else {
-			return "nothing";
-		}
 	}
 
 	@Override

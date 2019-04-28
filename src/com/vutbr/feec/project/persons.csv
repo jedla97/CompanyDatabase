@@ -1,6 +1,6 @@
-Director;1;Alexander;Amondi ;0;0.0;0.0;0.0;false;false;false;
-Developer;2;Etna;Harold;0;744.0;0.0;0.0;false;false;false;false
-TechnicalWorker;3;Otmar;Muscowequan;0;744.0;0.0;0.0;false;false;false;
+Director;1;Alexander;Amondi ;0;0.0;0.0;0.0;false;false;false;false
+Developer;2;Etna;Harold;0;744.0;0.0;0.0;false;false;false;
+TechnicalWorker;3;Otmar;Muscowequan;5;744.0;0.0;0.0;false;false;false;
 Assistant;25;Fereydoun;Simiyu;0;744.0;0.0;false;false;;;
 Assistant;4;Iason;Angjelko;0;744.0;0.0;false;false;;;
 Developer;5;Markus;Ella;0;744.0;0.0;0.0;false;false;false;

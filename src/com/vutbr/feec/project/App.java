@@ -1,3 +1,11 @@
+/*
+ * Create by Jakub Jedlicka
+ * School project BPC2I
+ * School BUT FEEC
+ * school login: xjedli24 ; Id: 198597 ; email: xjedli24@stud.feec.vutbr.cz
+ * personal email: jedlayt@gmail.com !for communication use this email and always subject with name of app
+ */
+//for execute app in cmd java -jar <file>.jar
 package com.vutbr.feec.project;
 
 import java.io.File;
@@ -8,6 +16,7 @@ import java.util.Scanner;
 public class App {
 	private static final String MAVEN_RESOURCES_PREFIX = "./src/com/vutbr/feec/project/";
 
+// main part of app for choose which operation to do
 	public static void main(String[] args) {
 		final DecimalFormat df = new DecimalFormat("#.##");
 		File persons = new File(MAVEN_RESOURCES_PREFIX + "persons.csv");
@@ -94,28 +103,60 @@ public class App {
 					sc.next();
 				}
 				id = sc.nextInt();
-				if (data.isCapable(id) == true) {
+				if (data.isCapable(id, 4) == true) {
 					System.out.println("Employee is not capable of do this job");
 				} else {
 					help1 = data.whatIsMyProfession(id);
 					if (help1 == 1) {
-						data.printEmployee(id);
+						if (data.isCapable(id, 1) == true) {
+							System.out.println("Employee is not capable of do this job");
+						} else {
+							data.printEmployee(id);
+						}
 					} else {
 						help2 = function.chooseWhatToDo(help1);
 						if (help1 == 2 && help2 == 1) {
-							data.printEmployee(id);
+							if (data.isCapable(id, 1) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printEmployee(id);
+							}
 						} else if (help1 == 2 && help2 == 2) {
-							data.printNumbersOfVowels(id);
+							if (data.isCapable(id, 2) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printNumbersOfVowels(id);
+							}
 						} else if (help1 == 3 && help2 == 1) {
-							data.printNumbersOfVowels(id);
+							if (data.isCapable(id, 2) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printNumbersOfVowels(id);
+							}
 						} else if (help1 == 3 && help2 == 2) {
-							data.printReverse(id);
+							if (data.isCapable(id, 3) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printReverse(id);
+							}
 						} else if (help1 == 4 && help2 == 1) {
-							data.printEmployee(id);
+							if (data.isCapable(id, 1) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printEmployee(id);
+							}
 						} else if (help1 == 4 && help2 == 2) {
-							data.printNumbersOfVowels(id);
+							if (data.isCapable(id, 2) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printNumbersOfVowels(id);
+							}
 						} else if (help1 == 4 && help2 == 3) {
-							data.printReverse(id);
+							if (data.isCapable(id, 3) == true) {
+								System.out.println("Employee is not capable of do this job");
+							} else {
+								data.printReverse(id);
+							}
 						}
 					}
 				}
@@ -205,11 +246,11 @@ public class App {
 			else if (operation == 13) {
 				try {
 					data.load(persons, data);
-					
+
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				
+
 				function.press2Continue();
 			}
 			// end program

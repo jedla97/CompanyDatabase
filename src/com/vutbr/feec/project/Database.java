@@ -20,10 +20,11 @@ public class Database implements Comparator<Employee> {
 	final String LINE_SEPARATOR = "\n";
 	public static String format = "|%1$-8s|%2$-20s|%3$-20s|%4$-15s|\n";
 	public static DecimalFormat df = new DecimalFormat("#.##");
-	
+
 	Comparator<Employee> compareByLastName = (Employee o1, Employee o2) -> o1.getLastName().compareTo(o2.getLastName());
 	Comparator<Employee> compareById = (Employee o1, Employee o2) -> o1.getId().compareTo(o2.getId());
 
+	// print all list of employee by id or last name
 	public void printAllEmployee() {
 		int choose;
 		String[] operation = { " by Id ", " by last name " };
@@ -56,6 +57,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// print one employee by his id or say employee dont't exist
 	public void printEmployee(int id) {
 		int help;
 		help = this.employeeId(id);
@@ -66,6 +68,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// print number of vowels of employee by his id
 	public void printNumbersOfVowels(int id) {
 		int help, vowels;
 		help = this.employeeId(id);
@@ -78,6 +81,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// print his whole name in reverse by his id
 	public void printReverse(int id) {
 		int help;
 		String name;
@@ -91,6 +95,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// control if employee exist
 	public int checkIfIdExist(int id) {
 		for (int i = 0; i < data.size(); i++) {
 			if (data.get(i).getId() == id) {
@@ -101,6 +106,7 @@ public class Database implements Comparator<Employee> {
 		return 0;
 	}
 
+	// return employee id in array list
 	public int employeeId(int arrayId) {
 		for (int i = 0; i < data.size(); i++) {
 			if (data.get(i).getId() == arrayId) {
@@ -110,6 +116,7 @@ public class Database implements Comparator<Employee> {
 		return -1;
 	}
 
+	// save array list in persons.csv
 	public void save(File persons) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(persons), true);
 		for (int i = 0; i < data.size(); i++) {
@@ -120,6 +127,7 @@ public class Database implements Comparator<Employee> {
 		System.out.println("Employee database was save successfully");
 	}
 
+	// load array list from persons.csv and return array list
 	public void load(File persons, Database data) throws FileNotFoundException {
 		BufferedReader br = new BufferedReader(new FileReader(persons));
 		String line = "";
@@ -191,6 +199,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// calculate salary of all employee
 	public double companySalary() {
 		double salaryHelp = 0;
 		for (int i = 0; i < data.size(); i++) {
@@ -201,12 +210,14 @@ public class Database implements Comparator<Employee> {
 
 	}
 
+	// set obligation( max hours) what employee can do
 	public void obligation(double hours) {
 		for (int i = 0; i < data.size(); i++) {
 			data.get(i).setMaxHours(hours);
 		}
 	}
 
+	// numbers of employee on their position and their free obligations
 	public void numberOfEmployeeAndFreeObligation() {
 		int counterA = 0, counterT = 0, counterDev = 0, counterDir = 0;
 		double obligationA = 0, obligationT = 0, obligationDev = 0, obligationDir = 0;
@@ -240,6 +251,7 @@ public class Database implements Comparator<Employee> {
 
 	}
 
+	// return number of my profession
 	public int whatIsMyProfession(int id) {
 		int help = this.employeeId(id);
 		String prof;
@@ -260,15 +272,35 @@ public class Database implements Comparator<Employee> {
 		return 0;
 	}
 
-	public boolean isCapable(int id) {
+	// return true when employee can't do the job
+	public boolean isCapable(int id, int action) {
 		int help = this.employeeId(id);
-		if (help == -1) {
-		} else if (data.get(help).isIll() == true || data.get(help).getHours() == 0) {
-			return true;
+		if (action == 4) {
+			if (help == -1) {
+			} else if (data.get(help).isIll() == true || data.get(help).getHours() == 0) {
+				return true;
+			}
+			return false;
+		} else if (action == 1) {
+			if (data.get(help).getHoursA() == 0) {
+				return true;
+			}
+			return false;
+		} else if (action == 2) {
+			if (data.get(help).getHoursT() == 0) {
+				return true;
+			}
+			return false;
+		} else if (action == 3) {
+			if (data.get(help).getHoursD() == 0) {
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}
 
+	// Algorithm for financial best divided work for assistant work
 	public int workAssistant(double hours) {
 		int counterA = 0, counterT = 0, counterDir = 0;
 		/*
@@ -489,6 +521,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// Algorithm for financial best divided work for technical work
 	public int workTechnical(double hours) {
 		int counterT = 0, counterDev = 0, counterDir = 0;
 		/*
@@ -712,6 +745,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// Algorithm for financial best divided work for developing work
 	public int workDeveloper(double hours) {
 		int counterDev = 0, counterDir = 0;
 		/*
@@ -822,6 +856,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// Setting work by what of the type of work
 	public int setWork(int activity, double hours) {
 		if (activity == 1) {
 			return this.workAssistant(hours);
@@ -833,6 +868,7 @@ public class Database implements Comparator<Employee> {
 		return 0;
 	}
 
+	// after every work algorithm set new work hours
 	public void setHoursAfterWork() {
 		double hoursA = 0, hoursT = 0, hoursD = 0;
 		for (int i = 0; i < data.size(); i++) {
@@ -843,6 +879,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// get max hour from array list for new employee
 	public double getMaxHourForEmployee() {
 		double ret = 744, help = 744;
 		for (int i = 0; i < data.size(); i++) {
@@ -854,6 +891,7 @@ public class Database implements Comparator<Employee> {
 		return ret;
 	}
 
+	// get array of 3 part of work hours
 	public double[] employeeHours(int id) {
 		int help;
 		double hoursA = 0, hoursT = 0, hoursD = 0;
@@ -871,6 +909,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// remove employee from array list by id
 	public void fireEmployee(int id) {
 		int help;
 		String name;
@@ -884,6 +923,7 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
+	// end employee illness by id
 	public void endIlness(int id) {
 		int help;
 		help = this.employeeId(id);
@@ -895,11 +935,12 @@ public class Database implements Comparator<Employee> {
 		}
 	}
 
-	// ret -1 for adminW fail , -2 for tecgwork fail, -3 for developer fail,
-	// -4 for technical and administraion fail,
-	// -5 for technic and develop fail, -6 for develop and administration fail,
-	// -7 for all fail
+	// try reallocate hours from employee which was fire or start illness
 	public int reallocation(double hoursA, double hoursT, double hoursD, int prof) {
+		// ret -1 for adminW fail , -2 for tecgwork fail, -3 for developer fail,
+		// -4 for technical and administraion fail,
+		// -5 for technic and develop fail, -6 for develop and administration fail,
+		// -7 for all fail
 		int help = 0;
 		if (prof == 1) {
 			help = this.workAssistant(hoursA);
@@ -965,6 +1006,7 @@ public class Database implements Comparator<Employee> {
 		return 0;
 	}
 
+	// Start employee illness
 	public int startIlness(int id) {
 		int help;
 		help = this.employeeId(id);

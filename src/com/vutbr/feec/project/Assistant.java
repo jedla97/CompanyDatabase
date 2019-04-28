@@ -15,26 +15,27 @@ public class Assistant extends Employee {
 		super(id, name, lastName);
 	}
 
-	// for administration work
-	@Override
-	public String showEmployeeData() {
-		this.setSalary();
-			return "name: " + this.getName() + " " + this.getLastName() + " working " + this.getHours()
-					+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
-	}
-
-	@Override
-	public String toString() {
-		String[] stringHelp = { this.getId().toString(), this.getName(), this.getLastName(), profession };
-		return String.format(format, stringHelp) + " working on " + this.workJobs();
-	}
-
+	// return string with type of work and how many hours do on that job
 	public String workJobs() {
 		if (this.administrationWork == true) {
 			return "administrative work with " + df.format(this.getHoursA()) + " hours";
 		} else {
 			return "nothing";
 		}
+	}
+
+	// for administration work
+	@Override
+	public String showEmployeeData() {
+		this.setSalary();
+		return "name: " + this.getName() + " " + this.getLastName() + " working " + df.format(this.getHours())
+				+ " hours, salary is " + df.format(this.getSalary()) + " and is not ill";
+	}
+
+	@Override
+	public String toString() {
+		String[] stringHelp = { this.getId().toString(), this.getName(), this.getLastName(), profession };
+		return String.format(format, stringHelp) + " working on " + this.workJobs();
 	}
 
 	@Override
