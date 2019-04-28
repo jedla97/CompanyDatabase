@@ -255,7 +255,7 @@ public class App {
 			}
 			// end program
 			else if (operation == 14) {
-				System.out.println("program has been ended due to player end");
+				System.out.println("program has been ended due to user end");
 				break;
 				// System.exit(99);
 			}
